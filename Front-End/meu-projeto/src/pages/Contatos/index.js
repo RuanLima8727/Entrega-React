@@ -4,8 +4,8 @@ export default function Contatos(props) {
 
     const [comment,setComment] = React.useState([])
 
-    React.useEffect(  async function Get(){
-        const response = await fetch("http://projetos/USEPHPAQUI/Entrega%20React%20aquiii/Back-End/index.php")
+    React.useEffect( async function Get(){
+        const response = await fetch("http://localhost:3001/jsoncoment")
         const dados = await response.json()
         setComment(dados) 
     } ,[]
