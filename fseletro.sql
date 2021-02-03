@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 16-Jan-2021 às 19:56
+-- Tempo de geração: 03-Fev-2021 às 17:16
 -- Versão do servidor: 5.7.31
 -- versão do PHP: 7.3.21
 
@@ -107,6 +107,30 @@ INSERT INTO `produto` (`idproduto`, `info`, `preco`, `img`) VALUES
 (10, 'Microondas Eletrolux', '700', 'microondas1.png'),
 (11, 'Microondas Simples', '600', 'microondas2.png'),
 (12, 'Microondas PRO', '650', 'microondas3.png');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `usuario`
+--
+
+DROP TABLE IF EXISTS `usuario`;
+CREATE TABLE IF NOT EXISTS `usuario` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) COLLATE utf8_bin NOT NULL,
+  `usuario` varchar(50) COLLATE utf8_bin NOT NULL,
+  `email` varchar(100) COLLATE utf8_bin NOT NULL,
+  `senha` varchar(255) COLLATE utf8_bin NOT NULL,
+  `timecreatead` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Extraindo dados da tabela `usuario`
+--
+
+INSERT INTO `usuario` (`id`, `nome`, `usuario`, `email`, `senha`, `timecreatead`) VALUES
+(1, 'Ruan Lima Ribeiro', 'davidlima', 'devd8727@gmail.com', '25f9e794323b453885f5181f1b624d0b', '2021-02-03 17:15:44');
 
 --
 -- Restrições para despejos de tabelas
