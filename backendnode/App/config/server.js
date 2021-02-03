@@ -1,7 +1,8 @@
 var express = require('express');
 var consign = require('consign');
 var cors = require('cors');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
+var {check,validationResult} = require('express-validator');
 
 var app = express();
 app.set('view engine', 'ejs');

@@ -1,0 +1,35 @@
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8"/>
+        <title>BackEnd</title>
+        
+    </head>
+    <body>
+        <h1>Usuários Cadastros</h1>
+        <strong> ID-NOME-SENHA-EMAIL-USUARIO</strong>
+        <% if (dados.length > 0 ){ %>
+            <% for(i=0;i<dados.length;i++){%>
+                <p><%=dados[i].id %> - <%=dados[i].nome %> - <%=dados[i].senha %> - 
+                    <%=dados[i].email %>-  <%=dados[i].usuario %> </p>
+            <%}} else{%>
+                <h2>Nenhum Dado Encontrado</h2>
+
+                <%}%>
+
+        <br>
+        <h2>Buscar Usuário</h2>
+        <Form method="POST" action="/usuario/buscar/email">
+        Buscar Email : <input type="text" name="email">
+            <input type="submit" value="Pesquisar.....">
+        </Form>
+        <br>
+        <Form method="POST" action="/usuario/buscar/id">
+        Buscar Id : <input type="text" name="id">
+            <input type="submit" value="Pesquisar.....">
+        </Form>
+       <br>
+       <h2>Cadastrar Usuário:</h2>
+        <a href="/usuariocad">Cadastrar Usuário</a>
+
+    </body>
+</html>
