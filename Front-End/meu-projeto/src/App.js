@@ -1,21 +1,34 @@
-import Menu from './Components/Menu/Menu'
-import Footer from './Components/footer/footer'
+// import Menu from './Components/Menu/Menu'
+// import Footer from './Components/footer/footer'
+// import Routes from './routes';
 import { BrowserRouter } from 'react-router-dom';
 import { Container } from 'react-bootstrap'
-import Routes from './routes';
 import './App.css';
+import {lazy, Suspense} from 'react'
+
+const Menu = lazy(()=>import('./Components/Menu/Menu'))
+const Footer = lazy(()=>import('./Components/footer/footer'))
+const Routes = lazy(()=>import('./routes'))
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <header><Menu /></header>
+        <header>
+            <Suspense fallback={<p> <bold>Carregando.......</bold></p>}>
+              <Menu />  
+            </Suspense>
+        </header>
         <main>
           <Container fluid>
-            <Routes />
+            <Suspense fallback={<p> <bold>Carregando.......</bold></p>}>
+              <Routes />                
+            </Suspense>
           </Container>
         </main>
-        <Footer />
+        <Suspense fallback={<p> <bold>Carregando.......</bold></p>}>      
+          <Footer />
+        </Suspense>
       </div>
     </BrowserRouter>
   );
