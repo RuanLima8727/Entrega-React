@@ -25,10 +25,10 @@ function BaseMenu(props) {
                         <Nav.Link as={Link} href="/produtos" to="/produtos">Produtos</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link as={Link} href="/contatos" to="/contatos" >Contato</Nav.Link>
+                        <Nav.Link as={Link} href="/contatos" to="/contatos" >Reviews</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link as={Link} href="/pedidos" to="/pedidos">Pedidos</Nav.Link>
+                        <Nav.Link as={Link} href="/pedidos" to="/pedidos">Comentários</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
                         <Nav.Link as={Link} href="/lojas" to="/lojas">Nossas Lojas</Nav.Link>

@@ -1,88 +1,86 @@
-import { useState } from 'react';
-import { Form, Button, Row } from 'react-bootstrap';
+import React from 'react'
 
 export default function PagePedidos() {
-    const [form, setForm] = useState({
-        nome: "",
-        endereco: "",
-        fone: "",
-        valor: "",
-        quantidade: "",
-        preco_final: ""
-    });
 
-    const controleMudanca = (evento) => {
-        console.log(evento.target.value)
-        setForm({
-            ...form,
-            [evento.target.id]: evento.target.value
-        })
-    }
+    async function registrarComentario(event){
+        event.preventDefault();
 
-    const controleEnvio = async (evento) => {
-        evento.preventDefault();
-        const preco_final = parseFloat(form.valor) * parseFloat(form.quantidade);
-        document.getElementById("preco_final").value = `R$ ${preco_final}`;
-
-        setForm({
-            ...form,
-            preco_final: preco_final
-        })
-
-        const json = JSON.stringify(form);
-        const opcoes = {
-            crossDomain: true,
-            mode: 'cors',
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: json
+        const teste = {
+            nome : document.getElementById("nome").value,
+            email : document.getElementById('email').value,
+            mensagem : document.getElementById('msg').value
         }
-        const resposta = await fetch("http://localhost:80/produtos.php", opcoes);
-        const dados = await resposta.json()
-        console.log(dados);
-    }
+        console.log(JSON.stringify(teste))
+        const url = "http://localhost:3002/comentario";
 
-    return (
-        <Row>
-            <div className="col-lg-6 col-md-6 mx-auto bg-dark p-4 text-light">
-                <Form onSubmit={controleEnvio}>
-                    <h4>Fazer Pedidos</h4>
-                    <Form.Group>
-                        <Form.Label>Nome:</Form.Label>
-                        <Form.Control onChange={controleMudanca} type="text" id="nome" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Endereço:</Form.Label>
-                        <Form.Control onChange={controleMudanca} type="text" id="endereco" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Telefone:</Form.Label>
-                        <Form.Control onChange={controleMudanca} type="text" id="fone" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Produto:</Form.Label>
-                        <Form.Control onChange={controleMudanca} type="text" id="produto" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Valor Unitário:</Form.Label>
-                        <Form.Control onChange={controleMudanca} type="text" id="valor" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Quantidade:</Form.Label>
-                        <Form.Control onChange={controleMudanca} type="text" id="quantidade" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Preço Final:</Form.Label>
-                        <Form.Control disabled type="text" id="preco_final" />
-                    </Form.Group>
-                    <Button variant="success" type="submit">
-                        Cadastrar
-            </Button>
-                </Form>
+        fetch(url,{
+            method:"POST",
+            headers: {
+                "Content-type":"application/json"
+              },
+            body:JSON.stringify(teste)
+        }).then((response)=>response.json()).then((dados)=>{console.log(dados)});
+          
+        }             
+        
+              
+        
+
+        const [product,setProduct] = React.useState([])
+
+        React.useEffect(  async function Get(){
+            const response = await fetch("http://localhost:3002/") 
+            const dados = await response.json()
+            setProduct(dados) 
+        } ,[]
+        )
+        console.log()
+
+    return(
+        <div className="container">
+            <div className="container p-4 bg-dark">
+            <p className="bg-dark lead text-light p-4 display-4">DEIXE SEU COMENTARIO!!</p>
+            <form method="POST" action="" onSubmit= {registrarComentario} >
+                <label className="input-group py-2 text-light lead">Nome :</label>
+                <input id="nome"className="form-control"  type="text" name="nome" /><br/>
+
+                <label className="input-group py-2 text-light lead">Email :</label>
+                <input id="email" className="form-control" type="text" name="email" /><br/>
+
+                <label className="input-group py-2 text-light lead" >Comentario :</label>
+                 
+                <textarea id="msg" className="form-control py-4" type="text" name="mensagem" /><br/>                
+
+                <input className="btn btn-success" type="submit" />
+             </form>
+             
+             </div>
+             <br/>
+             <br/>
+             <br/>
+             
+
+
+                                
+            <div>
+                {product.map((element)=>{
+                        return(
+                                <div className="card py-4 p-4"  >
+                                        <p className="card-title">
+                                            <b>Nome: </b> {element.nome}</p>                      
+                                        <p className="card-title">
+                                            <b>Email: </b>{element.email}</p>
+                                        <p className="card-text">
+                                            <b>Mensagem: </b>{element.mensagem}</p>
+                                </div>
+                               
+                            )})}                    
             </div>
-        </Row>
-    );
+        </div>
+
+
+
+             
+        
+    )
 }
